@@ -14,15 +14,15 @@ void print(set<int> &_s) {
 }
 
 void print(map<string, int> &_m) {
-    for (auto & it : _m) {
-        cout << it.first << ' ' << it.second << endl;
+//    for (auto & it : _m) {
+    for (map<string, int>::const_iterator it = _m.cbegin(); it != _m.cend(); it++) {
+        cout << it->first << ' ' << it->second << endl;
     }
     cout << "-----" << endl;
 }
 
 int main() {
     vector<int> x = {1, 2, 3, 0, 5, 6, 9, 0, 0, 0, 15, 100, 200};
-//    sort(x.begin(), x.end());
     for (int i = 0; i < x.size(); i++) {
         auto it = upper_bound(x.begin(), x.end(), 1);
         cout << *it << ' ';
