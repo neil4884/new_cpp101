@@ -45,4 +45,6 @@ add_executable(2560_midterm_07 grader/2560_midterm_07.cpp)
 add_executable(2559_midterm_04 grader/2559_midterm_04.cpp)
 add_executable(ds02_is_reverse grader/ds02_is_reverse.cpp)
 
-add_executable(main grader/vequal_project/main.cpp)
+add_executable(main grader/range_insert_package/main.cpp)
+add_executable(d62_q2c_wasted_space grader/d62_q2c_wasted_space.cpp)
+add_executable(d62_q2a_iterator_check grader/d62_q2a_iterator_check.cpp)

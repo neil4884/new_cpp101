@@ -1,6 +1,6 @@
 #include <stdexcept>
 #include <iostream>
-#include "vector.h"
+#include "../vector.h"
 #include "student.h"
 
 
