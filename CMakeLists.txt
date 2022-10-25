@@ -45,8 +45,22 @@ add_executable(2560_midterm_07 grader_p1/2560_midterm_07.cpp)
 add_executable(2559_midterm_04 grader_p1/2559_midterm_04.cpp)
 add_executable(ds02_is_reverse grader_p1/ds02_is_reverse.cpp)
 
-add_executable(main grader_p2/package_queue_m2b/main.cpp)
+add_executable(main grader_p4/kheap-student/main.cpp)
 add_executable(d62_q2c_wasted_space grader_p1/d62_q2c_wasted_space.cpp)
 add_executable(d62_q2a_iterator_check grader_p1/d62_q2a_iterator_check.cpp)
 
 add_executable(test_stack grader_p2/sbv2_project/test_stack.cpp)
+
+add_executable(d64_q3a_queue_check grader_p3/d64_q3a_queue_check.cpp)
+
+add_executable(passtest study/passtest.cpp)
+add_executable(d65x study/d65x.cpp)
+add_executable(this_cp stl_cp/this_cp.cpp)
+add_executable(ds03_heap_order grader_p4/ds03_heap_order.cpp)
+add_executable(ds03_heap_erase grader_p4/ds03_heap_erase.cpp)
+
+add_executable(d62_q3b_kheap_height grader_p4/d62_q3b_kheap_height.cpp)
+add_executable(d62_q3a_heap_node_relation grader_p4/d62_q3a_heap_node_relation.cpp)
+add_executable(d62_q3a_heap_descendant grader_p4/package_rank_in_heap/d62_q3a_heap_descendant.cpp)
+
+add_executable(d57_q2_heap_order2 d57_q2_heap_order2.cpp)

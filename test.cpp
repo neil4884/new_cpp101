@@ -24,12 +24,5 @@ void print(T &_s) {
 }
 
 int main() {
-    map<int, int> m;
-    vector<int> x = {1, 2, 3}, y = {3, 2, 1};
-    m[0] = 0;
-    print(m);
-    print(x);
-    int j = 5;
-    cout << (j += 3) << '\n';
-
+    cout << ((-5555) & (1 << 31));
 }
