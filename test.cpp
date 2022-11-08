@@ -24,5 +24,6 @@ void print(T &_s) {
 }
 
 int main() {
-    cout << ((-5555) & (1 << 31));
+    int *x = nullptr;
+    cout << *x;
 }
