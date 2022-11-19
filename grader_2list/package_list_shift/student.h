@@ -5,7 +5,11 @@
 
 template<typename T>
 void CP::list<T>::shift_left() {
-    // your code here
+    if (!mSize) return;
+    iterator it = begin();
+    T v = *it;
+    erase(it);
+    insert(end(), v);
 }
 
 #endif

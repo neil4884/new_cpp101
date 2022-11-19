@@ -6,6 +6,7 @@
 //#pragma once
 
 namespace CP {
+
     template<typename T>
     class list {
     protected:
@@ -79,16 +80,16 @@ namespace CP {
         //-------------- constructor & copy operator ----------
 
         // copy constructor
-        list(list<T> &a) :
+        list(const list<T> &a) :
                 mHeader(new node()), mSize(0) {
-            for (iterator it = a.begin(); it != a.end(); it++) {
-                push_back(*it);
+            for (auto &x: *this) {
+                push_back(x);
             }
         }
 
         // default constructor
-        list() :
-                mHeader(new node()), mSize(0) {}
+        list() : mHeader(new node()), mSize(0) {
+        }
 
         // copy assignment operator using copy-and-swap idiom
         list<T> &operator=(list<T> other) {
@@ -168,7 +169,9 @@ namespace CP {
         }
 
         void print() {
-            std::cout << " Header address = " << (mHeader) << std::endl;
+            std::cout << " Size = " << mSize << std::endl;
+            std::cout << " Header address = " << (mHeader) << " (prev = " << mHeader->prev << " next = "
+                      << mHeader->next << ")" << std::endl;
             int i = 0;
             iterator before;
             for (iterator it = begin(); it != end(); before = it, it++, i++) {
@@ -178,41 +181,8 @@ namespace CP {
             }
         }
 
-#include "student.h"
+        CP::list<T> split(iterator it, size_t pos);
 
-        void splitList(CP::list<T> &list1, CP::list<T> &list2) {
-            if (mSize == 0) return;
-            size_t na = (mSize + 1) / 2;
-            size_t nb = mSize - na;
-
-            iterator ita1 = begin();
-            iterator ita2 = end();
-            iterator itb1 = end();
-            iterator itb2 = iterator(mHeader->prev);
-            for (int i = 0; i < na; ++i, ++itb1, ++ita2);
-            ++itb1;
-
-            ita1.ptr->prev = list1.mHeader->prev;
-            list1.mHeader->prev->next = ita1.ptr;
-
-            ita2.ptr->next = list1.mHeader;
-            list1.mHeader->prev = ita2.ptr;
-
-            if (nb) {
-                itb1.ptr->prev = list2.mHeader->prev;
-                list2.mHeader->prev->next = itb1.ptr;
-
-                itb2.ptr->next = list2.mHeader;
-                list2.mHeader->prev = itb2.ptr;
-            }
-
-            list1.mSize += na;
-            list2.mSize += nb;
-            mSize = 0;
-
-            mHeader->next = mHeader;
-            mHeader->prev = mHeader;
-        }
     };
 
 }

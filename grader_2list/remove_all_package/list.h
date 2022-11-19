@@ -6,9 +6,13 @@
 //#pragma once
 
 namespace CP {
+
     template<typename T>
     class list {
     protected:
+        //debug counter
+        int ic, ec, ac, ndc, ncc;
+
         class node {
             friend class list;
 
@@ -74,6 +78,10 @@ namespace CP {
         node *mHeader; // pointer to a header node
         size_t mSize;
 
+        void init_counter() {
+            ic = ec = ac = ncc = ndc = 0;
+        }
+
 
     public:
         //-------------- constructor & copy operator ----------
@@ -87,8 +95,8 @@ namespace CP {
         }
 
         // default constructor
-        list() :
-                mHeader(new node()), mSize(0) {}
+        list() : mHeader(new node()), mSize(0) {
+        }
 
         // copy assignment operator using copy-and-swap idiom
         list<T> &operator=(list<T> other) {
@@ -167,52 +175,22 @@ namespace CP {
             while (mSize > 0) erase(begin());
         }
 
+
         void print() {
-            std::cout << " Header address = " << (mHeader) << std::endl;
+            std::cout << "Printing..." << std::endl << "Size = " << mSize << std::endl;
+            std::cout << "Header address = " << (mHeader) << " (prev = " << mHeader->prev << " next = " << mHeader->next
+                      << ")" << std::endl;
             int i = 0;
             iterator before;
             for (iterator it = begin(); it != end(); before = it, it++, i++) {
                 std::cout << "Node " << i << ": " << *it;
-                std::cout << " (prev = " << it.ptr->prev << ", I'm at " << it.ptr << ", next = " << it.ptr->next << ")"
+                std::cout << " Pointer: prev = " << it.ptr->prev << ", I'm at " << it.ptr << ", next = " << it.ptr->next
                           << std::endl;
             }
         }
 
-#include "student.h"
+        void remove_all(const T &value);
 
-        void splitList(CP::list<T> &list1, CP::list<T> &list2) {
-            if (mSize == 0) return;
-            size_t na = (mSize + 1) / 2;
-            size_t nb = mSize - na;
-
-            iterator ita1 = begin();
-            iterator ita2 = end();
-            iterator itb1 = end();
-            iterator itb2 = iterator(mHeader->prev);
-            for (int i = 0; i < na; ++i, ++itb1, ++ita2);
-            ++itb1;
-
-            ita1.ptr->prev = list1.mHeader->prev;
-            list1.mHeader->prev->next = ita1.ptr;
-
-            ita2.ptr->next = list1.mHeader;
-            list1.mHeader->prev = ita2.ptr;
-
-            if (nb) {
-                itb1.ptr->prev = list2.mHeader->prev;
-                list2.mHeader->prev->next = itb1.ptr;
-
-                itb2.ptr->next = list2.mHeader;
-                list2.mHeader->prev = itb2.ptr;
-            }
-
-            list1.mSize += na;
-            list2.mSize += nb;
-            mSize = 0;
-
-            mHeader->next = mHeader;
-            mHeader->prev = mHeader;
-        }
     };
 
 }

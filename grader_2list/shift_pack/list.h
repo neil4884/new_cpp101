@@ -6,6 +6,7 @@
 //#pragma once
 
 namespace CP {
+
     template<typename T>
     class list {
     protected:
@@ -73,6 +74,7 @@ namespace CP {
     protected:
         node *mHeader; // pointer to a header node
         size_t mSize;
+        bool mCheck;  // for quiz
 
 
     public:
@@ -84,11 +86,12 @@ namespace CP {
             for (iterator it = a.begin(); it != a.end(); it++) {
                 push_back(*it);
             }
+            mCheck = true;
         }
 
         // default constructor
         list() :
-                mHeader(new node()), mSize(0) {}
+                mHeader(new node()), mSize(0) { mCheck = true; }
 
         // copy assignment operator using copy-and-swap idiom
         list<T> &operator=(list<T> other) {
@@ -155,6 +158,7 @@ namespace CP {
         }
 
         iterator erase(iterator it) {
+            if (mCheck) std::cout << "WRONG FUNCTION CALL" << std::endl;
             iterator tmp(it.ptr->next);
             it.ptr->prev->next = it.ptr->next;
             it.ptr->next->prev = it.ptr->prev;
@@ -164,56 +168,70 @@ namespace CP {
         }
 
         void clear() {
+            mCheck = false;
             while (mSize > 0) erase(begin());
         }
 
+        void check() {
+            node *p;
+            int n;
+            p = mHeader;
+            n = mSize + 1;
+            while (n--) p = p->next;
+            if (p != mHeader) {
+                std::cout << "next POINTER ERROR" << std::endl;
+            }
+            p = mHeader;
+            n = mSize + 1;
+            while (n--) p = p->prev;
+            if (p != mHeader) {
+                std::cout << "prev POINTER ERROR" << std::endl;
+            }
+        }
+
         void print() {
-            std::cout << " Header address = " << (mHeader) << std::endl;
-            int i = 0;
+
+            std::cout << "[ ";
+            for (iterator it = begin(); it != end(); it++) {
+                std::cout << *it << " ";
+            }
+            std::cout << "]" << std::endl;
+        }
+
+        void printb() {
             iterator before;
-            for (iterator it = begin(); it != end(); before = it, it++, i++) {
-                std::cout << "Node " << i << ": " << *it;
-                std::cout << " (prev = " << it.ptr->prev << ", I'm at " << it.ptr << ", next = " << it.ptr->next << ")"
-                          << std::endl;
+            std::cout << "[ ";
+            iterator it = begin();
+            it--;
+            it--;
+            for (; it != begin(); it--) {
+                std::cout << *it << " ";
             }
+            std::cout << *it << " ";
+            std::cout << "]" << std::endl;
         }
 
-#include "student.h"
-
-        void splitList(CP::list<T> &list1, CP::list<T> &list2) {
+//#include "shift.h"
+        void shift(int k) {
             if (mSize == 0) return;
-            size_t na = (mSize + 1) / 2;
-            size_t nb = mSize - na;
+            size_t to_shift = k >= 0 ? k > mSize ? k % mSize : k : mSize - ((-k) % mSize);
+            iterator it = begin();
+            for (size_t i = 0; i < to_shift; ++i, ++it);
 
-            iterator ita1 = begin();
-            iterator ita2 = end();
-            iterator itb1 = end();
-            iterator itb2 = iterator(mHeader->prev);
-            for (int i = 0; i < na; ++i, ++itb1, ++ita2);
-            ++itb1;
+            node *n = new node(T(), it.ptr->prev, it.ptr);
+            it.ptr->prev->next = n;
+            it.ptr->prev = n;
+            it = iterator(n);
 
-            ita1.ptr->prev = list1.mHeader->prev;
-            list1.mHeader->prev->next = ita1.ptr;
+            mHeader->prev->next = mHeader->next;
+            mHeader->next->prev = mHeader->prev;
+            delete mHeader;
 
-            ita2.ptr->next = list1.mHeader;
-            list1.mHeader->prev = ita2.ptr;
-
-            if (nb) {
-                itb1.ptr->prev = list2.mHeader->prev;
-                list2.mHeader->prev->next = itb1.ptr;
-
-                itb2.ptr->next = list2.mHeader;
-                list2.mHeader->prev = itb2.ptr;
-            }
-
-            list1.mSize += na;
-            list2.mSize += nb;
-            mSize = 0;
-
-            mHeader->next = mHeader;
-            mHeader->prev = mHeader;
+            mHeader = it.ptr;
         }
+
     };
+
 
 }
 

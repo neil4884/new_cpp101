@@ -1,11 +1,9 @@
-#ifndef _CP_LIST_INCLUDED_
-#define _CP_LIST_INCLUDED_
-
 #include <stdexcept>
 #include <iostream>
 //#pragma once
 
 namespace CP {
+
     template<typename T>
     class list {
     protected:
@@ -178,45 +176,50 @@ namespace CP {
             }
         }
 
-#include "student.h"
+//#include "replace.h"
 
-        void splitList(CP::list<T> &list1, CP::list<T> &list2) {
-            if (mSize == 0) return;
-            size_t na = (mSize + 1) / 2;
-            size_t nb = mSize - na;
-
-            iterator ita1 = begin();
-            iterator ita2 = end();
-            iterator itb1 = end();
-            iterator itb2 = iterator(mHeader->prev);
-            for (int i = 0; i < na; ++i, ++itb1, ++ita2);
-            ++itb1;
-
-            ita1.ptr->prev = list1.mHeader->prev;
-            list1.mHeader->prev->next = ita1.ptr;
-
-            ita2.ptr->next = list1.mHeader;
-            list1.mHeader->prev = ita2.ptr;
-
-            if (nb) {
-                itb1.ptr->prev = list2.mHeader->prev;
-                list2.mHeader->prev->next = itb1.ptr;
-
-                itb2.ptr->next = list2.mHeader;
-                list2.mHeader->prev = itb2.ptr;
+        void replace(const T &x, list<T> &y) {
+            iterator it = begin();
+            for (; it != end(); ++it) {
+                if (*it != x) continue;
+                for (auto &e: y) {
+                    it = insert(it, e);
+                    ++it;
+                }
+                it = erase(it);
+                --it;
             }
 
-            list1.mSize += na;
-            list2.mSize += nb;
-            mSize = 0;
-
-            mHeader->next = mHeader;
-            mHeader->prev = mHeader;
         }
+
     };
 
 }
 
-#endif
+int main() {
+    CP::list<int> l;
+    l.push_back(9);
+    l.push_back(2);
+    l.push_back(2);
+    l.push_back(4);
+    l.push_back(2);
+    l.push_back(7);
+    CP::list<int> y;
+    y.push_back(3);
+    y.push_back(2);
+    y.push_back(1);
 
+    l.replace(2, y);
+    CP::list<int>::iterator it = l.begin();
+    l.print();
+    if ((*it++ == 9) && (*it++ == 3) && (*it++ == 2) && (*it++ == 1) && (*it++ == 3) && (*it++ == 2) && (*it++ == 1) &&
+        (*it++ == 4) &&
+        (*it++ == 3) && (*it++ == 2) && (*it++ == 1) && (*it++ == 7)) {
+        std::cout << "Right" << std::endl;
+    } else {
+        std::cout << "Wrong" << std::endl;
+    }
+
+    return 0;
+}
 

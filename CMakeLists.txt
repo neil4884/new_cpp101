@@ -45,7 +45,7 @@ add_executable(2560_midterm_07 grader_0p1/2560_midterm_07.cpp)
 add_executable(2559_midterm_04 grader_0p1/2559_midterm_04.cpp)
 add_executable(ds02_is_reverse grader_0p1/ds02_is_reverse.cpp)
 
-add_executable(main grader_2list/package_list_shift/main.cpp)
+add_executable(main grader_3tree/package_subtree/main.cpp)
 add_executable(d62_q2c_wasted_space grader_0p1/d62_q2c_wasted_space.cpp)
 add_executable(d62_q2a_iterator_check grader_0p1/d62_q2a_iterator_check.cpp)
 
@@ -65,3 +65,6 @@ add_executable(d62_q3a_heap_descendant grader_1heap/package_rank_in_heap/d62_q3a
 
 add_executable(d57_q2_heap_order2 d57_q2_heap_order2.cpp)
 add_executable(ds04_playlist grader_2list/ds04_playlist.cpp)
+
+add_executable(node_test study/node_test.cpp)
+add_executable(best_bst grader_3tree/best_bst.cpp)

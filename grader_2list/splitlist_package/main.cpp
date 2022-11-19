@@ -1,9 +1,9 @@
 #include <iostream>
 #include "list.h"
+
 using namespace std;
 
-int main()
-{
+int main() {
     CP::list<int> x, a, b;
     x.push_back(1);
     x.push_back(7);
@@ -20,11 +20,11 @@ int main()
     b.push_back(4);
     b.push_back(5);
     x.splitList(a, b);
-    cout<<"x is"<<endl;
+    cout << "x is" << endl;
     x.print();
-    cout<<"a is"<<endl;
+    cout << "a is" << endl;
     a.print();
-    cout<<"b is"<<endl;
+    cout << "b is" << endl;
     b.print();
     return 0;
 }
