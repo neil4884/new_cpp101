@@ -16,8 +16,8 @@ template<typename KeyT, typename MappedT, typename CompareT>
 std::pair<KeyT, MappedT> CP::map_bst<KeyT, MappedT, CompareT>::subtree(map_bst <KeyT, MappedT, CompareT> &left,
                                                                        map_bst <KeyT, MappedT, CompareT> &right) {
     if (mSize == 0) return std::pair<KeyT, MappedT>();
-    left = map_bst<KeyT, MappedT, CompareT>();
-    right = map_bst<KeyT, MappedT, CompareT>();
+    left.clear();
+    right.clear();
     size_t lsize = 0;
     size_t rsize = 0;
 
@@ -29,13 +29,13 @@ std::pair<KeyT, MappedT> CP::map_bst<KeyT, MappedT, CompareT>::subtree(map_bst <
 
     if (mRoot->left != nullptr) {
         left.mRoot = mRoot->left;
-        left.mRoot->left->parent = nullptr;
+        left.mRoot->parent = nullptr;
         left.mSize = lsize;
     }
 
     if (mRoot->right != nullptr) {
         right.mRoot = mRoot->right;
-        right.mRoot->right->parent = nullptr;
+        right.mRoot->parent = nullptr;
         right.mSize = rsize;
     }
 
@@ -48,4 +48,5 @@ std::pair<KeyT, MappedT> CP::map_bst<KeyT, MappedT, CompareT>::subtree(map_bst <
 }
 
 #endif
+
 

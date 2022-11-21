@@ -1,9 +1,9 @@
 #include <iostream>
 #include "map_bst.h"
+
 using namespace std;
 
-int main()
-{
+int main() {
     CP::map_bst<int, int> m;
     m[50] = 1;
     m[17] = 1;
@@ -17,6 +17,6 @@ int main()
     m[12] = 1;
     m[67] = 1;
     m.print();
-    std::cout<<m.getValueOfMostImbalanceNode()<<endl;
+    std::cout << m.getValueOfMostImbalanceNode() << endl;
     return 0;
 }

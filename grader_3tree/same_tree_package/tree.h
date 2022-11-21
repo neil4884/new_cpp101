@@ -1,18 +1,25 @@
 #ifndef TREE_H_INCLUDED
 #define TREE_H_INCLUDED
 
-class Tree{
-    class Node{
-        public:
-            friend class Tree;
-            Node() {data = -1; left = NULL; right = NULL;}
-            Node(const int x, Node* left, Node* right) : data(x), left(left), right(right) {}
+class Tree {
+    class Node {
+    public:
+        friend class Tree;
 
-        protected:
-            int data;
-            Node* left;
-            Node* right;
+        Node() {
+            data = -1;
+            left = NULL;
+            right = NULL;
+        }
+
+        Node(const int x, Node *left, Node *right) : data(x), left(left), right(right) {}
+
+    protected:
+        int data;
+        Node *left;
+        Node *right;
     };
+
 public:
 
     Tree() {
@@ -24,7 +31,7 @@ public:
         clear(mRoot);
     }
 
-    void clear(Node*& r) {
+    void clear(Node *&r) {
         if (!r) return;
         clear(r->left);
         clear(r->right);
@@ -34,23 +41,35 @@ public:
     void insert(int x) {
         insertAt(mRoot, x);
     }
-    bool isSameBinaryTree(Tree& t) {
-        // Insert your code here
+
+    bool check(Node *n1, Node *n2) {
+        if (n1 == nullptr && n2 == nullptr) return true;
+        if (n1 == nullptr || n2 == nullptr) return false;
+        if (n1->data != n2->data) return false;
+        if (!check(n1->left, n2->left)) return false;
+        if (!check(n1->right, n2->right)) return false;
+        return true;
+    }
+
+    bool isSameBinaryTree(Tree &t) {
+        return check(t.mRoot, mRoot);
     }
     // You can also put your code here
 
 protected:
-    void insertAt(Node*& r, int x) {
+    void insertAt(Node *&r, int x) {
         if (!r) {
-           r = new Node(x, NULL, NULL);
-           mSize++;
-           return;
+            r = new Node(x, NULL, NULL);
+            mSize++;
+            return;
         }
         if (r->data == x) return; // Do nothing
-        if (x < r->data) insertAt(r->left, x); else
-        insertAt(r->right, x);
+        if (x < r->data) insertAt(r->left, x);
+        else
+            insertAt(r->right, x);
     }
-    Node* mRoot;
+
+    Node *mRoot;
     int mSize;
 
 };
